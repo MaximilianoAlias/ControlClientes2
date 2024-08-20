@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Spring Data</h1><br>
+<!-- Vamos a crear el crud en el html para eso debemos crear una etiqueta de tipo anchor
+ en donde nuestro href va a tener la nueva ruta de la pagina a la cual nos dirigiremos
+ para ello usaremos la siguiente sintaxis -->
+<a th:href="@{/agregar}">Agregar Persona</a>
+<div th:if="${listaPersonas != null and !listaPersonas.isEmpty()}">
+    <table border="1">
+        <tr bgcolor="#7fffd4red">
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+
+        <tr th:each="persona : ${listaPersonas}" bgcolor="#adff2f">
+            <td th:text="${persona.nombre}"></td>
+            <td th:text="${persona.apellido}"></td>
+            <td th:text="${persona.email}"></td>
+            <td th:text="${persona.telefono}"></td>
+            <!-- en el href cuando ponemos el @{/editar} hacemos referencia al metodo que vamos a llamar
+             de nuestro controlador y en este caso le concatenamos el ID de la persona a la cual le modificaremos los datos
+             -->
+            <td><a th:href="@{'/editar/' + ${persona.idPersona}}" th:text="'Editar'"></a></td>
+            <td><a th:href="@{'/eliminar/' + ${persona.idPersona}}" th:text="'Eliminar'"></a></td>
+
+        </tr>
+    </table>
+</div>
+<div th:if="${listaPersonas == null or listaPersonas.isEmpty()}">
+    <h1 th:text="${listaVacia}" bgcolor="RED"></h1>
+</div>
+
+
+
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Capa de Servicio</title>
+</head>
+</html>

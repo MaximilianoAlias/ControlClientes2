@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar - Modificar Persona</title>
+</head>
+<body>
+<h1>Datos de la Persona</h1>
+<!--Creamos una etoqueta a la que le agregaremos la ruta en el href del menu de inicio para poder
+ regresar a la pantalla principal, usamos esa sintaxis por el thymeleaf
+ -->
+<a th:href="@{/}">Volver al inicio</a> <br>
+<!--Al crear el formulario debemos asociarlo a un objeto de tipo persona para que pueda
+ realizar los cambios en dicho objeto, para ello usaremos de thymeleaf el comando
+ th:object="$persona" en donde especificamos la variable que estamos compartiendo que en
+ este caso es "persona" que es la que figura en el metodo agregar como parametro, y con esto simplemente
+ es suficiente para asociar el formulario al objeto de tipo persona
+ -->
+<form th:action="@{/guardar}" method="post" th:object="${persona}">
+    <!--Dentro del "input" vamos a asociar el campo del objeto
+     persona que querramos modificar con una sintaxis te thymeleaf. Por ejemplo
+     en el input de "Nombre" asociaremos el atributo "nombre" de la persona,
+     por lo que haremos de la siguiente manera th:field"*{nombre}"
+     -->
+    <input id="idPersona"  type="hidden" name="idPersona" th:field="*{idPersona}"/>
+<!-- agregamos un input de tipo hidden para que a la hora de editar un objeto tenga en cuenta el idPersona
+    ya que sin este atributo simplemente crea un dato nuevo y al ser de tipo hidden no se ve en el form-->
+    <label for="nombre">Nombre: </label><input id="nombre"  type="text" placeholder="Ingrese el nombre" th:field="*{nombre}"/>
+    <br>
+    <label for="apellido">Apellidos: </label><input id="apellido" type="text" placeholder="Ingrese el apellido" th:field="*{apellido}"/>
+    <br>
+    <label for="email">Email: </label><input id="email" type="email" placeholder="Ingrese el email" th:field="*{email}"/>
+    <br>
+    <label for="telefono">Telefono: </label><input id="telefono" type="tel" placeholder="Ingrese un telefono" th:field="*{telefono}"/>
+    <br>
+    <input type="submit" name="guardar" value="Guardar"/>
+</form>
+</body>
+</html>
